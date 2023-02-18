@@ -7,6 +7,7 @@
 <body>
 <h1>
 	Hello world!  
+	<a href="./notice/list">글목록보기</a>
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
