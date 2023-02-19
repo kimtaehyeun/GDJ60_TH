@@ -7,12 +7,13 @@
 
 	<select id="getNoticeCount" resultType="Long"
 		parameterType="Pager">
-	SELECT count(noticenum) count FROM NOTICE
+		SELECT count(noticenum) count FROM NOTICE
 	</select>
-	<select id="getNoticeList" parameterType="Pager" resultType="NoticeDTO">
+	<select id="getNoticeList" parameterType="Pager"
+		resultType="NoticeDTO">
 		SELECT * FROM
 		(SELECT ROWNUM R, N.*
-		FROM (SELECT * FROM NOTICE 
+		FROM (SELECT * FROM NOTICE
 		<if test="kind =='contents'">
 			WHERE NOTICECONTENTS LIKE '%' || #{search} || '%'
 		</if>
@@ -22,23 +23,52 @@
 		<if test="kind =='writer'">
 			WHERE NOTICEWRITER LIKE '%' || #{search} || '%'
 		</if>
-		
+
 		ORDER BY NOTICENUM DESC) N)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
-	<select id="getNoticeDetail" resultType="NoticeDTO"
+
+
+	<select id="getNoticeDetail" resultMap="noticeDetailResult"
 		parameterType="NoticeDTO">
-		select * from notice where NOTICENUM=#{noticeNum}
+		SELECT N.*, I.*
+		FROM NOTICE N
+		LEFT OUTER JOIN
+		NOTICEIMG I
+		ON
+		(N.NOTICENUM = I.NOTICENUM)
+		WHERE N.NOTICENUM={noticeNum}
+
 	</select>
+	<resultMap type="NoticeDTO" id="noticeDetailResult">
+		<id column="NOTICENUM" property="noticeNum" />
+		<result column="NOTICETITLE" property="noticeTitle" />
+		<result column="NOTICECONTENTS" property="noticeContents" />
+		<result column="NOTICEWRITER" property="noticeWriter"/>
+		
+		<result column="NOTICEHIT" property="noticeHit" />
+		
+		<association property="noticeImgDTO" javaType="noticeImgDTO">
+		<id column="FILENUM" property="fileNum"/>
+		<result column="FILENAME" property="fileName"/>
+		<result column="ORINAME" property="oriName"/>
+		</association>
+	</resultMap>
 	<insert id="setNoticeAdd" parameterType="NoticeDTO">
 		INSERT INTO NOTICE
 		VALUES(NOTICE_SEQ.NEXTVAL,#{noticeTitle},#{noticeContents},#{noticeWriter},SYSDATE,0)
 	</insert>
 	<delete id="setNoticeDelete" parameterType="NoticeDTO">
-		DELETE FROM NOTICE WHERE NOTICENUM=#{noticeNum}
+		DELETE FROM NOTICE
+		WHERE NOTICENUM=#{noticeNum}
 	</delete>
 	<update id="setNoticeUpdate" parameterType="NoticeDTO">
-	UPDATE NOTICE SET NOTICETITLE =#{noticeTitle}, NOTICECONTENTS =#{noticeContents},
-	NOTICEWRITER =#{noticeWriter} WHERE NOTICENUM=#{noticeNum}
+		UPDATE NOTICE SET NOTICETITLE =#{noticeTitle}, NOTICECONTENTS
+		=#{noticeContents},
+		NOTICEWRITER =#{noticeWriter} WHERE NOTICENUM=#{noticeNum}
 	</update>
+	
+	<insert id="setNoticeImgAdd" parameterType="NoticeImgDTO">
+		insert into NOTICEIMG VALUES (NOTICE_SEQ.NEXTVAL, #{noticeNum}, #{fileName}, #{oriName})
+	</insert>
 </mapper>

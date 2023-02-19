@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.s2.util.Pager;
@@ -41,8 +42,11 @@ public class NoticeController {
 		return mv;
 	}
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public ModelAndView setNoticeAdd(ModelAndView mv, NoticeDTO noticeDTO)throws Exception{
-		int result = noticeService.setNoticeAdd(noticeDTO);
+	public ModelAndView setNoticeAdd(ModelAndView mv, NoticeDTO noticeDTO,MultipartFile pic, HttpSession session)throws Exception{
+		
+		
+		
+		int result = noticeService.setNoticeAdd(noticeDTO, pic);
 		mv.setViewName("redirect:./list");
 		return mv;
 	}

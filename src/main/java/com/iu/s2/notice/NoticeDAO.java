@@ -15,6 +15,7 @@ public class NoticeDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.iu.s2.notice.NoticeDAO.";
 	
+	
 	public Long getNoticeCount(Pager pager) {
 		return sqlSession.selectOne(NAMESPACE+"getNoticeCount",pager);
 	}
@@ -33,5 +34,8 @@ public class NoticeDAO {
 	}
 	public int setNoticeUpdate(NoticeDTO noticeDTO) {
 		return sqlSession.update(NAMESPACE+"setNoticeUpdate",noticeDTO);
+	}
+	public int setNoticeImgAdd(NoticeImgDTO noticeImgDTO) {
+		return sqlSession.insert(NAMESPACE+"setNoticeImgAdd",noticeImgDTO);
 	}
 }

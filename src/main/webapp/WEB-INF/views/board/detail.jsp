@@ -36,8 +36,12 @@
 				</tr>
 			</tbody>
 		</table>
-				<a href="./delete?noticeNum=${detail.noticeNum}">삭제</a>
-			<a href="./update?noticeNum=${detail.noticeNum}">삭제</a>
+		<c:if test="${not empty detail.noticeImgDTO}">
+			<img alt=""
+				src="../resources/upload/notice/${dto.noticeImgDTO.fileName}">
+		</c:if>
+		<a href="./delete?noticeNum=${detail.noticeNum}">삭제</a> <a
+			href="./update?noticeNum=${detail.noticeNum}">삭제</a>
 	</div>
 
 

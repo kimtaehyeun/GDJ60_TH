@@ -8,6 +8,8 @@
 		alias="NoticeDTO"/>
 		<typeAlias type="java.lang.Long" alias="Long" />
 		<typeAlias type="com.iu.s2.util.Pager" alias="Pager"/>
+		<typeAlias type="com.iu.s2.notice.NoticeImgDTO"
+		alias="NoticeImgDTO"/>
 	</typeAliases>
 
 

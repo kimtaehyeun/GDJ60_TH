@@ -12,7 +12,14 @@ public class NoticeDTO {
 	private Calendar noticeRegDate;
 	private Long noticeHit;
 	
+	private NoticeImgDTO noticeImgDTO;
 	
+	public NoticeImgDTO getNoticeImgDTO() {
+		return noticeImgDTO;
+	}
+	public void setNoticeImgDTO(NoticeImgDTO noticeImgDTO) {
+		this.noticeImgDTO = noticeImgDTO;
+	}
 	public Long getNoticeNum() {
 		return noticeNum;
 	}

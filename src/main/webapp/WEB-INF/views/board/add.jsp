@@ -13,6 +13,10 @@
 		<label>타이틀</label><input type="text" name="noticeTitle">
 		<label>작성자</label><input type="text" name="noticeWriter">
 		<textarea rows="3" cols="5" name="noticeContents">내용</textarea>
+		<div>
+		<label for="files" class="form-label" >이미지</label>
+		<input type="file" class="form-control" id="files" name="pic">
+		</div>
 	<button type="submit">전송</button>
 	</form>
 	
