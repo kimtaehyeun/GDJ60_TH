@@ -2,21 +2,43 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.iu.s2.notice.NoticeDAO">
 
-	<select id="getNoticeList" resultType="NoticeDTO">
-	select * from notice
+<mapper namespace="com.iu.s2.notice.NoticeDAO">
+
+	<select id="getNoticeCount" resultType="Long"
+		parameterType="Pager">
+	SELECT count(noticenum) count FROM NOTICE
 	</select>
-	<select id="getNoticeDetail" resultType="NoticeDTO" parameterType="NoticeDTO">
-	select * from notice where noticenum=#{noticeNum}
+	<select id="getNoticeList" parameterType="Pager" resultType="NoticeDTO">
+		SELECT * FROM
+		(SELECT ROWNUM R, N.*
+		FROM (SELECT * FROM NOTICE 
+		<if test="kind =='contents'">
+			WHERE NOTICECONTENTS LIKE '%' || #{search} || '%'
+		</if>
+		<if test="kind =='title'">
+			WHERE NOTICETITLE LIKE '%' || #{search} || '%'
+		</if>
+		<if test="kind =='writer'">
+			WHERE NOTICEWRITER LIKE '%' || #{search} || '%'
+		</if>
+		
+		ORDER BY NOTICENUM DESC) N)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	<select id="getNoticeDetail" resultType="NoticeDTO"
+		parameterType="NoticeDTO">
+		select * from notice where NOTICENUM=#{noticeNum}
 	</select>
 	<insert id="setNoticeAdd" parameterType="NoticeDTO">
-	INSERT INTO NOTICE 
-VALUES(NOTICE_SEQ.NEXTVAL,#{noticeTitle},#{noticeContents},#{noticeWriter},SYSDATE,#{noticeHit})
+		INSERT INTO NOTICE
+		VALUES(NOTICE_SEQ.NEXTVAL,#{noticeTitle},#{noticeContents},#{noticeWriter},SYSDATE,0)
 	</insert>
 	<delete id="setNoticeDelete" parameterType="NoticeDTO">
-	DELETE FROM NOTICE WHERE NOTICENUM=#{noticeNum}
-	
+		DELETE FROM NOTICE WHERE NOTICENUM=#{noticeNum}
 	</delete>
+	<update id="setNoticeUpdate" parameterType="NoticeDTO">
+	UPDATE NOTICE SET NOTICETITLE =#{noticeTitle}, NOTICECONTENTS =#{noticeContents},
+	NOTICEWRITER =#{noticeWriter} WHERE NOTICENUM=#{noticeNum}
+	</update>
 </mapper>

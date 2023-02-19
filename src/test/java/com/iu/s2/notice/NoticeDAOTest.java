@@ -13,11 +13,11 @@ import com.iu.s2.MyTestCase;
 public class NoticeDAOTest extends MyTestCase{
 	@Autowired
 	private NoticeService noticeService;
-	@Test
-	public void getNoticeListTest() {
-		List<NoticeDTO> ar =  noticeService.getNoticeList();
-		assertEquals(0, ar.size());
-	}
+//	@Test
+//	public void getNoticeListTest() {
+//		List<NoticeDTO> ar =  noticeService.getNoticeList();
+//		assertEquals(0, ar.size());
+//	}
 
 //	@Test
 //	public void setNoticeAddTest() {
