@@ -19,6 +19,8 @@ public class NoticeService {
 	private FileManager fileManager;
 	@Autowired
 	private ServletContext servletContext;
+	
+	
 	public List<NoticeDTO> getNoticeList(Pager pager){
 		Long totalCount =noticeDAO.getNoticeCount(pager);
 		pager.makeRow();
@@ -27,8 +29,8 @@ public class NoticeService {
 		return ar;
 	}
 	public int setNoticeAdd(NoticeDTO noticeDTO, MultipartFile pic) throws Exception {
+		int result = noticeDAO.setNoticeAdd(noticeDTO);
 		if(!pic.isEmpty()) {
-			int result = noticeDAO.setNoticeAdd(noticeDTO);
 			String realPath = servletContext.getRealPath("resources/upload/notice");
 			String fileName= fileManager.fileSave(pic, realPath);
 			
@@ -37,10 +39,10 @@ public class NoticeService {
 			noticeImgDTO.setOriName(pic.getOriginalFilename());
 			noticeImgDTO.setNoticeNum(noticeDTO.getNoticeNum());
 			result =noticeDAO.setNoticeImgAdd(noticeImgDTO);
-			return result ;
 		}
+		return result ;
 		
-		return noticeDAO.setNoticeAdd(noticeDTO);
+		
 		
 	}
 	public NoticeDTO getNoticeDetail(NoticeDTO noticeDTO) {

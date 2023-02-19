@@ -37,38 +37,45 @@
 		NOTICEIMG I
 		ON
 		(N.NOTICENUM = I.NOTICENUM)
-		WHERE N.NOTICENUM={noticeNum}
+		WHERE N.NOTICENUM=#{noticeNum}
 
 	</select>
 	<resultMap type="NoticeDTO" id="noticeDetailResult">
 		<id column="NOTICENUM" property="noticeNum" />
 		<result column="NOTICETITLE" property="noticeTitle" />
 		<result column="NOTICECONTENTS" property="noticeContents" />
-		<result column="NOTICEWRITER" property="noticeWriter"/>
-		
+		<result column="NOTICEWRITER" property="noticeWriter" />
+
 		<result column="NOTICEHIT" property="noticeHit" />
-		
-		<association property="noticeImgDTO" javaType="noticeImgDTO">
-		<id column="FILENUM" property="fileNum"/>
-		<result column="FILENAME" property="fileName"/>
-		<result column="ORINAME" property="oriName"/>
+
+		<association property="noticeImgDTO"
+			javaType="noticeImgDTO">
+			<id column="FILENUM" property="fileNum" />
+			<result column="FILENAME" property="fileName" />
+			<result column="ORINAME" property="oriName" />
 		</association>
 	</resultMap>
 	<insert id="setNoticeAdd" parameterType="NoticeDTO">
+		<selectKey keyProperty="noticeNum" order="BEFORE"
+			resultType="Long">
+			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO NOTICE
-		VALUES(NOTICE_SEQ.NEXTVAL,#{noticeTitle},#{noticeContents},#{noticeWriter},SYSDATE,0)
+		VALUES(#{noticeNum},#{noticeTitle},#{noticeContents},#{noticeWriter},SYSDATE,0)
 	</insert>
 	<delete id="setNoticeDelete" parameterType="NoticeDTO">
 		DELETE FROM NOTICE
 		WHERE NOTICENUM=#{noticeNum}
 	</delete>
 	<update id="setNoticeUpdate" parameterType="NoticeDTO">
-		UPDATE NOTICE SET NOTICETITLE =#{noticeTitle}, NOTICECONTENTS
+		UPDATE NOTICE SET
+		NOTICETITLE =#{noticeTitle}, NOTICECONTENTS
 		=#{noticeContents},
 		NOTICEWRITER =#{noticeWriter} WHERE NOTICENUM=#{noticeNum}
 	</update>
-	
+
 	<insert id="setNoticeImgAdd" parameterType="NoticeImgDTO">
-		insert into NOTICEIMG VALUES (NOTICE_SEQ.NEXTVAL, #{noticeNum}, #{fileName}, #{oriName})
+		insert into NOTICEIMG
+		VALUES (NOTICE_SEQ.NEXTVAL, #{noticeNum}, #{fileName}, #{oriName})
 	</insert>
 </mapper>

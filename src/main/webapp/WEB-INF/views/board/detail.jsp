@@ -41,7 +41,7 @@
 				src="../resources/upload/notice/${dto.noticeImgDTO.fileName}">
 		</c:if>
 		<a href="./delete?noticeNum=${detail.noticeNum}">삭제</a> <a
-			href="./update?noticeNum=${detail.noticeNum}">삭제</a>
+			href="./update?noticeNum=${detail.noticeNum}">수정</a>
 	</div>
 
 
