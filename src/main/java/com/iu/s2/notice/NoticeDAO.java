@@ -11,6 +11,7 @@ import com.iu.s2.util.Pager;
 @Repository
 public class NoticeDAO {
 
+	
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.iu.s2.notice.NoticeDAO.";

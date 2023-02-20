@@ -9,7 +9,7 @@ public class NoticeDTO {
 	private String noticeTitle;
 	private String noticeContents;
 	private String noticeWriter;
-	private Calendar noticeRegDate;
+	private String noticeRegDate;
 	private Long noticeHit;
 	
 	private NoticeImgDTO noticeImgDTO;
@@ -44,10 +44,10 @@ public class NoticeDTO {
 	public void setNoticeWriter(String noticeWriter) {
 		this.noticeWriter = noticeWriter;
 	}
-	public Calendar getNoticeRegDate() {
+	public String getNoticeRegDate() {
 		return noticeRegDate;
 	}
-	public void setNoticeRegDate(Calendar noticeRegDate) {
+	public void setNoticeRegDate(String noticeRegDate) {
 		
 		this.noticeRegDate = noticeRegDate;
 	}

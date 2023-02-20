@@ -20,6 +20,8 @@
 							href="/s2">홈</a></li>
 							<li class="nav-item"><a class="nav-link"
 							href="/s2/board/add">추가</a></li>
+							<li class="nav-item"><a class="nav-link"
+							href="/s2/board/list">리스트</a></li>
 						
 					</c:if>
 					<c:if test="${not empty detail.noticeNum}">
@@ -30,6 +32,7 @@
 							<li class="nav-item"><a class="nav-link"
 							href="/s2/board/delete?noticeNum=${detail.noticeNum}">삭제</a></li>
 					</c:if>
+					
 					
 				</ul>
 			</div>
