@@ -5,6 +5,9 @@
 
 <mapper namespace="com.iu.s2.notice.NoticeDAO">
 
+<update id="setNoticeHit" parameterType="NoticeDTO">
+UPDATE notice SET NOTICEHIT =NOTICEHIT+1 WHERE NOTICENUM =#{noticeNum}
+</update>
 	<select id="getNoticeCount" resultType="Long"
 		parameterType="Pager">
 		SELECT count(noticenum) count FROM NOTICE

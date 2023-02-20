@@ -48,12 +48,14 @@ public class NoticeDTO {
 		return noticeRegDate;
 	}
 	public void setNoticeRegDate(Calendar noticeRegDate) {
+		
 		this.noticeRegDate = noticeRegDate;
 	}
 	public Long getNoticeHit() {
 		return noticeHit;
 	}
 	public void setNoticeHit(Long noticeHit) {
+		
 		this.noticeHit = noticeHit;
 	}
 	

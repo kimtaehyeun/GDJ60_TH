@@ -38,10 +38,8 @@
 		</table>
 		<c:if test="${not empty detail.noticeImgDTO}">
 			<img alt=""
-				src="../resources/upload/notice/${dto.noticeImgDTO.fileName}">
+				src="../resources/upload/notice/${detail.noticeImgDTO.fileName}">
 		</c:if>
-		<a href="./delete?noticeNum=${detail.noticeNum}">삭제</a> <a
-			href="./update?noticeNum=${detail.noticeNum}">수정</a>
 	</div>
 
 

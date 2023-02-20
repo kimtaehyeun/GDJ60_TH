@@ -38,4 +38,7 @@ public class NoticeDAO {
 	public int setNoticeImgAdd(NoticeImgDTO noticeImgDTO) {
 		return sqlSession.insert(NAMESPACE+"setNoticeImgAdd",noticeImgDTO);
 	}
+	public int setNoticeHit(NoticeDTO noticeDTO) {
+		return sqlSession.update(NAMESPACE+"setNoticeHit", noticeDTO);
+	}
 }

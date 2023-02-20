@@ -79,9 +79,7 @@
 			</form>
 		</div>
 
-		<button type="submit">
-			<a href="./add">추가</a>
-		</button>
+		
 		<c:import url="../template/common_js.jsp"></c:import>
 </body>
 </html>

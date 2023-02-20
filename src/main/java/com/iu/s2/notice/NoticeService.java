@@ -46,7 +46,9 @@ public class NoticeService {
 		
 	}
 	public NoticeDTO getNoticeDetail(NoticeDTO noticeDTO) {
-		return noticeDAO.getNoticeDetail(noticeDTO);
+		noticeDTO=noticeDAO.getNoticeDetail(noticeDTO);
+		noticeDAO.setNoticeHit(noticeDTO);
+		return noticeDTO;
 		
 	}
 	public int setNoticeDelete(NoticeDTO noticeDTO) {
