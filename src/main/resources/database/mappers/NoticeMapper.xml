@@ -6,11 +6,11 @@
 <mapper namespace="com.iu.s2.notice.NoticeDAO">
 
 <update id="setNoticeHit" parameterType="NoticeDTO">
-UPDATE notice SET NOTICEHIT =NOTICEHIT+1 WHERE NOTICENUM =#{noticeNum}
+UPDATE NOTICE SET HIT =HIT+1 WHERE NUM =#{num}
 </update>
 	<select id="getNoticeCount" resultType="Long"
 		parameterType="Pager">
-		SELECT count(noticenum) count FROM NOTICE
+		SELECT count(num) count FROM NOTICE
 	</select>
 	<select id="getNoticeList" parameterType="Pager"
 		resultType="NoticeDTO">
@@ -18,16 +18,16 @@ UPDATE notice SET NOTICEHIT =NOTICEHIT+1 WHERE NOTICENUM =#{noticeNum}
 		(SELECT ROWNUM R, N.*
 		FROM (SELECT * FROM NOTICE
 		<if test="kind =='contents'">
-			WHERE NOTICECONTENTS LIKE '%' || #{search} || '%'
+			WHERE CONTENTS LIKE '%' || #{search} || '%'
 		</if>
 		<if test="kind =='title'">
-			WHERE NOTICETITLE LIKE '%' || #{search} || '%'
+			WHERE TITLE LIKE '%' || #{search} || '%'
 		</if>
 		<if test="kind =='writer'">
-			WHERE NOTICEWRITER LIKE '%' || #{search} || '%'
+			WHERE WRITER LIKE '%' || #{search} || '%'
 		</if>
 
-		ORDER BY NOTICENUM DESC) N)
+		ORDER BY NUM DESC) N)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 
@@ -39,17 +39,17 @@ UPDATE notice SET NOTICEHIT =NOTICEHIT+1 WHERE NOTICENUM =#{noticeNum}
 		LEFT OUTER JOIN
 		NOTICEIMG I
 		ON
-		(N.NOTICENUM = I.NOTICENUM)
-		WHERE N.NOTICENUM=#{noticeNum}
+		(N.NUM = I.NUM)
+		WHERE N.NUM=#{num}
 
 	</select>
 	<resultMap type="NoticeDTO" id="noticeDetailResult">
-		<id column="NOTICENUM" property="noticeNum" />
-		<result column="NOTICETITLE" property="noticeTitle" />
-		<result column="NOTICECONTENTS" property="noticeContents" />
-		<result column="NOTICEWRITER" property="noticeWriter" />
+		<id column="NUM" property="num" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENTS" property="contents" />
+		<result column="WRITER" property="writer" />
 
-		<result column="NOTICEHIT" property="noticeHit" />
+		<result column="HIT" property="hit" />
 
 		<association property="noticeImgDTO"
 			javaType="noticeImgDTO">
@@ -64,17 +64,16 @@ UPDATE notice SET NOTICEHIT =NOTICEHIT+1 WHERE NOTICENUM =#{noticeNum}
 			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO NOTICE
-		VALUES(#{noticeNum},#{noticeTitle},#{noticeContents},#{noticeWriter},SYSDATE,0)
+		VALUES(#{num},#{title},#{contents},#{writer},SYSDATE,0)
 	</insert>
 	<delete id="setNoticeDelete" parameterType="NoticeDTO">
 		DELETE FROM NOTICE
-		WHERE NOTICENUM=#{noticeNum}
+		WHERE NUM=#{num}
 	</delete>
 	<update id="setNoticeUpdate" parameterType="NoticeDTO">
 		UPDATE NOTICE SET
-		NOTICETITLE =#{noticeTitle}, NOTICECONTENTS
-		=#{noticeContents},
-		NOTICEWRITER =#{noticeWriter} WHERE NOTICENUM=#{noticeNum}
+		TITLE =#{title}, CONTENTS
+		=#{contents}, WRITER =#{writer} WHERE NUM=#{num}
 	</update>
 
 	<insert id="setNoticeImgAdd" parameterType="NoticeImgDTO">
